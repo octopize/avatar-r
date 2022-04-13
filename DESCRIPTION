@@ -1,0 +1,25 @@
+Package: avatar
+Type: Package
+Title: R Interface for Octopize's Avatarization Engine
+Version: 0.2.2
+Author: Octopize <help@octopize.io>
+Maintainer: Octopize <help@octopize.io>
+Description: Generates HTTP queries to the Avatarization engine to anonymize sensitive data
+License: ELv2
+Encoding: UTF-8
+LazyData: true
+Imports:
+  magrittr,
+  httr,
+  curl,
+  readr,
+  tibble,
+  dplyr
+RoxygenNote: 7.1.2
+SystemRequirements: GNU make
+Suggests:
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

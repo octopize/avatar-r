@@ -1,0 +1,7 @@
+.gitignore
+.lintr
+^\.Rproj\.user$
+^.*\.Rproj$
+Makefile
+^doc$
+^Meta$

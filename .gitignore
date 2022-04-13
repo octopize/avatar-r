@@ -1,0 +1,12 @@
+.Rproj*
+.Rhistory
+.RData
+.Rproj.user
+*.nb.html
+..Rcheck
+
+# Build folder
+build/
+inst/doc
+/doc/
+/Meta/
