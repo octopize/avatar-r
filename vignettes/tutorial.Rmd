@@ -1,0 +1,203 @@
+---
+title: Avatar R Tutorial
+output: rmarkdown::html_vignette
+# output: pdf_document
+# always_allow_html: true
+vignette: >
+  %\VignetteIndexEntry{Avatar Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+knitr::opts_chunk$set(error = TRUE)
+```
+
+This R interface communicates with the avatarization engine. For more information about the concepts and avatarization, checkout our main docs.
+
+## System prerequisites
+
+Make sure your system has `libcurl` properly installed.
+
+On a shell on your Ubuntu/Debian system:
+
+```{bash eval=FALSE, include=TRUE}
+apt-get update && apt-get install libcurl4-openssl-dev libssl-dev
+```
+
+## Installation
+
+Some packages must be installed before `avatar`.
+
+### R packages dependencies
+
+```{r eval=FALSE, include=TRUE}
+install.packages("tibble")
+install.packages("magrittr")
+install.packages("readr")
+install.packages("httr")  # requires libcurl to work (see above)
+```
+
+Make sure you're using a recent version of `readr`:
+
+```{r eval=FALSE}
+# Make sure you're using a recent version, e.g. 2.1.0
+packageVersion('readr')
+```
+
+### Install the avatar package
+
+Install the package by pointing to the `.tar.gz` source (replace path below).
+
+```{r eval=FALSE, include=TRUE}
+install.packages("avatar_0.x.x.tar.gz", repos = NULL, type = "source")
+```
+
+## Loading the library
+
+Once installed, load the library:
+
+```{r, echo=T, warning=FALSE, message=FALSE}
+library(avatar)
+```
+
+## Getting help
+
+You can list avatar's vignettes:
+
+```{r eval=FALSE, include=TRUE}
+browseVignettes(package="avatar")
+```
+
+You can also get documentation about the main functions:
+
+```{r eval=FALSE, include=TRUE}
+help(set_server)
+```
+
+## Preliminary steps
+
+First you need to load necessary packages and set the server.
+
+```{r, echo = T, warning=FALSE, message=FALSE}
+library(avatar)
+
+# Packages below are not necessary to run avatar but must be installed to run this tutorial
+library(knitr)
+library(dplyr)
+library(ade4)
+library(ggplot2)
+library(plotly)
+library(gridExtra)
+library(corrplot)
+library(readr)
+```
+
+Then configure the API endpoint:
+
+```{r echo = T, results = 'hide'}
+# Authorized self signed tls certificate
+httr::set_config(httr::config(ssl_verifypeer = 0L))
+
+# Set the server and check connection
+# Note: replace localhost with the server's URL
+set_server("http://localhost:8000")
+```
+
+## Quickstart
+
+This is all you need to run and evaluate and avatarization:
+
+```{r}
+set_server("http://localhost:8000")
+
+# Authenticate
+authenticate("username", "strong_password")
+
+# Upload the dataset
+dataset_id <- upload_dataset(iris)
+# Start the avatarization job
+job <- start_job(dataset_id, list(k=20))
+# Retrieve the avatars
+avatars <- get_avatars(job$id)
+
+# Retrieve the privacy metrics
+result <- get_job_result(job$id)
+print(result$metrics$hidden_rate)
+```
+
+## Avatarization Step by Step
+
+### Import Dataset
+
+```{r}
+# Import data
+my_data <- iris
+
+# Display dataframe
+kable(head(my_data))
+
+# You can control that R understood the data types for each column during importation:
+sapply(my_data, class)
+```
+
+If R understood the wrong data type, you need to recast it before avatarization or it will change the results. Here for instance, the variable `Species` could have been coded as `(1, 2, 3)`. In this case R would have casted `Species` as numeric while it is a factor.
+
+### Set parameters
+
+Here's the list of parameters you can use for avatarization. The description for each parameter is available in our main docs.
+
+- `k` (required)
+- `column_weights`: default=1 for each variable
+- `ncp`: default=5.
+- `k_impute`: default=5.
+- `seed`: default=NULL.
+
+```{r}
+# Upload your dataset
+dataset_id <- upload_dataset(iris)
+
+# Set the parameters you want to use for avatarization
+parameters <- list(k=20, column_weights=list(Sepal.Width=3), ncp=3, seed=42)
+
+# You don't need to specify every parameter. Most of them have default values (see above).
+parameters <- list(k=120)
+```
+
+### Run avatarization
+
+```{r}
+# This launches the avatarization and returns immediately
+job <- start_job(dataset_id, parameters)
+
+# You can retrieve the avatarized dataset.
+# This call will block until the job is done or a timeout is expired.
+# You can call this function as often as you want.
+avatars <- get_avatars(job$id)
+
+# Once the avatarization is finished, you will be able to manipulate the avatarized dataset:
+kable(head(avatars))
+
+# You can also retrieve the result metadata, including privacy metrics (see below)
+# For the full response, checkout help(get_job_result)
+result <- avatar::get_job_result(job$id)
+```
+
+You can follow the same process to retrieve the avatars with a higher `k`:
+
+```{r}
+parameters_higher_k <- list(k=120)
+job2 <- start_job(dataset_id, parameters_higher_k)
+large_k_avatars <- get_avatars(job2$id)
+kable(head(large_k_avatars))
+```
+
+### Evaluate privacy and utility
+
+You can retrieve the privacy and utility metrics from the result object (see our main docs for details about each metric):
+
+```{r}
+result$metrics$hidden_rate
+result$metrics$local_cloaking
+```
