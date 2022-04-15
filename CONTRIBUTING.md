@@ -3,9 +3,10 @@
 This is a guide intended for developers wanting to lend a hand.
 It contains detailed instructions on how to setup your development environment and
 the prerequisites needed to work on this project.
+
 ## Prerequisites
 
-Make sure you have R installed. On macOs:
+Make sure you have R installed. On macOS:
 
 ```bash
 # libgit2 is required by devtools
@@ -23,7 +24,7 @@ If you have never created an R package before, it is good idea to follow the tut
 make install
 ```
 
-Make sure things are properly installed>
+Make sure things are properly installed:
 
 ```text
 > library(devtools)
