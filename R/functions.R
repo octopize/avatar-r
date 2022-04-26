@@ -263,7 +263,6 @@ get_variable_contributions <- function(job_id, dataset_id) {
   response <- .do_http("GET", endpoint)
 
   contributions <- as.data.frame(do.call(cbind, response$data))
-
   # Convert column to numeric type
   for (i in seq_len(ncol(contributions))) {
     contributions[[i]] <- as.numeric(contributions[[i]])
@@ -289,8 +288,8 @@ get_projections <- function(job_id) {
   }
 
   response <- .do_http("GET", paste0("/projections/", job_id))
-  original_projections <- as.data.frame(do.call(cbind, response$records))
-  avatar_projections <- as.data.frame(do.call(cbind, response$avatars))
+  original_projections <- as.data.frame(do.call(rbind, response$records))
+  avatar_projections <- as.data.frame(do.call(rbind, response$avatars))
 
   return(list(original = original_projections, avatars = avatar_projections))
 }
