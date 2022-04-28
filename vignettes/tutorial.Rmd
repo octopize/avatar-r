@@ -33,10 +33,8 @@ Some packages must be installed before `avatar`.
 ### R packages dependencies
 
 ```{r eval=FALSE, include=TRUE}
-install.packages("tibble")
-install.packages("magrittr")
-install.packages("readr")
-install.packages("httr")  # requires libcurl to work (see above)
+# requires libcurl to work (see above)
+install.packages(c("tibble", "magrittr", "readr", "httr", "dplyr"))
 ```
 
 Make sure you're using a recent version of `readr`:
@@ -51,7 +49,7 @@ packageVersion('readr')
 Install the package by pointing to the `.tar.gz` source (replace path below).
 
 ```{r eval=FALSE, include=TRUE}
-install.packages("avatar_0.x.x.tar.gz", repos = NULL, type = "source")
+install.packages("~/Downloads/avatar_0.x.x.tar.gz", repos = NULL, type = "source")
 ```
 
 ## Loading the library
