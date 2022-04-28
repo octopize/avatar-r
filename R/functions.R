@@ -258,7 +258,7 @@ get_variable_contributions <- function(job_id, dataset_id) {
     stop("expected valid dataset_id, got null instead")
   }
 
-  endpoint <- paste0("/contributions/?job_id=", job_id, "&dataset_id=", dataset_id)
+  endpoint <- paste0("/contributions?job_id=", job_id, "&dataset_id=", dataset_id)
 
   response <- .do_http("GET", endpoint)
 
