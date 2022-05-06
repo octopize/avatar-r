@@ -18,6 +18,7 @@ run_single <- function(df){
     result <- avatar::get_job_result(job$id)
     res = get_variable_contributions(job$id, dataset_id)
     res = get_projections(job$id)
+    res = get_explained_variance(job$id)
     print(paste0("local_cloaking : ", result$metrics$local_cloaking))
     print(paste0("hidden_rate : ", result$metrics$hidden_rate))
     print("success")
