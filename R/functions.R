@@ -294,6 +294,28 @@ get_projections <- function(job_id) {
   return(list(original = original_projections, avatars = avatar_projections))
 }
 
+#' Get explained variance of the original records.
+#'
+#' @param job_id The job id for this avatarization
+#'
+#' @return named list of the explained variance and the ratio
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' get_explained_variance(job_id)
+#' }
+get_explained_variance <- function(job_id) {
+  if (is.null(job_id)) {
+    stop("expected valid job_id, got null instead")
+  }
+
+  response <- .do_http("GET", paste0("/variance/", job_id))
+
+  explained_variance <-as.data.frame(do.call(cbind, response$raw))
+  explained_variance_ratio <-as.data.frame(do.call(cbind, response$ratio))
+  return(list(explained_variance = explained_variance, explained_variance_ratio = explained_variance_ratio))
+}
 
 
 #' Create a user
