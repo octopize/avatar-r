@@ -8,21 +8,21 @@ httr::set_config(httr::config(ssl_verifypeer = 0L))
 set_server("http://localhost:8000")
 authenticate("user_integration", "password_integration")
 
-run_single <- function(df, label){
-    dataset_id <- avatar::upload_dataset(df)
-    head(mtcars)
-    parameters <- list(k = 20, ncp=4)
+run_single <- function(df, label) {
+  dataset_id <- avatar::upload_dataset(df)
+  head(mtcars)
+  parameters <- list(k = 20, ncp = 4)
 
-    job <- avatar::start_job(dataset_id, parameters)
-    avatars <- avatar::get_avatars(job$id)
-    result <- avatar::get_job_result(job$id)
-    res = get_variable_contributions(job$id, dataset_id)
-    res = get_projections(job$id)
-    res = get_explained_variance(job$id)
-    print(paste0("######## " , label, " ########"))
-    print(paste0("local_cloaking : ", result$metrics$local_cloaking))
-    print(paste0("hidden_rate : ", result$metrics$hidden_rate))
-    print("success")
+  job <- avatar::start_job(dataset_id, parameters)
+  avatars <- avatar::get_avatars(job$id)
+  result <- avatar::get_job_result(job$id)
+  res <- get_variable_contributions(job$id, dataset_id)
+  res <- get_projections(job$id)
+  res <- get_explained_variance(job$id)
+  print(paste0("######## ", label, " ########"))
+  print(paste0("local_cloaking : ", result$metrics$local_cloaking))
+  print(paste0("hidden_rate : ", result$metrics$hidden_rate))
+  print("success")
 }
 
 # PCA

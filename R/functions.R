@@ -199,6 +199,13 @@ get_job_result <- function(job_id, timeout = 10) {
 
 #' Get avatars as a dataframe given a job id
 #'
+#' The order of the lines have been shuffled, which means
+#' that the link between original and avatar individuals cannot
+#' be made.
+#'
+#' Any further processing on the server will however use
+#' the same avatar dataset as the one returned here.
+#'
 #' @param job_id The job id for this avatarization
 #' @param get_result_timeout The time to wait for the job result in seconds
 #' @param download_timeout The time to wait for the download in seconds
@@ -312,8 +319,8 @@ get_explained_variance <- function(job_id) {
 
   response <- .do_http("GET", paste0("/variance/", job_id))
 
-  explained_variance <-as.data.frame(do.call(cbind, response$raw))
-  explained_variance_ratio <-as.data.frame(do.call(cbind, response$ratio))
+  explained_variance <- as.data.frame(do.call(cbind, response$raw))
+  explained_variance_ratio <- as.data.frame(do.call(cbind, response$ratio))
   return(list(explained_variance = explained_variance, explained_variance_ratio = explained_variance_ratio))
 }
 

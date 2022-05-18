@@ -175,6 +175,8 @@ job <- start_job(dataset_id, parameters)
 avatars <- get_avatars(job$id)
 
 # Once the avatarization is finished, you will be able to manipulate the avatarized dataset:
+# Note that the order of the lines have been shuffled, which means that the link
+# between the order between original and avatar individuals cannot be made.
 kable(head(avatars))
 
 # You can also retrieve the result metadata, including privacy metrics (see below)

@@ -17,7 +17,13 @@ get_avatars(job_id, get_result_timeout = 10, download_timeout = 100)
 Avatars dataframe
 }
 \description{
-Get avatars as a dataframe given a job id
+The order of the lines have been shuffled, which means
+that the link between original and avatar individuals cannot
+be made.
+}
+\details{
+Any further processing on the server will however use
+the same avatar dataset as the one returned here.
 }
 \examples{
 \dontrun{
