@@ -108,6 +108,7 @@ set_server("http://localhost:8000")
 This is all you need to run and evaluate and avatarization:
 
 ```{r}
+# Replace with your server address
 set_server("http://localhost:8000")
 
 # Authenticate
