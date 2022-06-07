@@ -5,7 +5,7 @@ Version: 0.2.7
 Author: Octopize <help@octopize.io>
 Maintainer: Octopize <help@octopize.io>
 Description: Generates HTTP queries to the Avatarization engine to anonymize sensitive data
-License: ELv2
+License: Apache-2.0 
 Encoding: UTF-8
 LazyData: true
 Imports:
