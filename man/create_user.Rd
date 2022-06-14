@@ -12,7 +12,7 @@ create_user(username, password)
 \item{password}{The user's password}
 }
 \value{
-
+Nothing
 }
 \description{
 Create a user

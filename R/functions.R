@@ -25,7 +25,7 @@ set_server <- function(server) {
 #' @param username Your username
 #' @param password Your password (minimum 12 characters)
 #'
-#' @return
+#' @return Nothing
 #' @export
 #'
 #' @examples
@@ -183,6 +183,10 @@ get_job_result <- function(job_id, timeout = 10) {
       return(job_response$result)
     }
 
+    if (job_response$status == "failure") {
+      stop(paste0("Job failed with the following message : ", job_response$error_message))
+    }
+
     elapsed <- proc.time()[[3]] - start_time
     if (elapsed > timeout) {
       stop(paste0(
@@ -330,7 +334,7 @@ get_explained_variance <- function(job_id) {
 #' @param username The user's name
 #' @param password The user's password
 #'
-#' @return
+#' @return Nothing
 #' @export
 #'
 #' @examples

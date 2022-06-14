@@ -12,7 +12,7 @@ authenticate(username, password)
 \item{password}{Your password (minimum 12 characters)}
 }
 \value{
-
+Nothing
 }
 \description{
 Authenticate
