@@ -14,7 +14,7 @@ get_job_result(job_id, timeout = 10)
 \value{
 A list containing the job response
 \itemize{
-  \item{metrics}{a list containg security metrics, with names 'local_cloaking' and 'hidden_rate'}
+  \item{privacy_metrics}{a list containg privacy metrics, with names 'local_cloaking' and 'hidden_rate'}
   \item{avatars_dataset}{a list containing the avatars dataset metadata}
 }
 }

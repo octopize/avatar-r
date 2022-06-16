@@ -1,11 +1,11 @@
 Package: avatar
 Type: Package
 Title: R Interface for Octopize's Avatarization Engine
-Version: 0.2.7
+Version: 0.3.2
 Author: Octopize <help@octopize.io>
 Maintainer: Octopize <help@octopize.io>
 Description: Generates HTTP queries to the Avatarization engine to anonymize sensitive data
-License: Apache-2.0 
+License: Apache-2.0
 Encoding: UTF-8
 LazyData: true
 Imports:

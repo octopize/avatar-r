@@ -20,8 +20,8 @@ run_single <- function(df, label) {
   res <- get_projections(job$id)
   res <- get_explained_variance(job$id)
   print(paste0("######## ", label, " ########"))
-  print(paste0("local_cloaking : ", result$metrics$local_cloaking))
-  print(paste0("hidden_rate : ", result$metrics$hidden_rate))
+  print(paste0("local_cloaking : ", result$privacy_metrics$local_cloaking))
+  print(paste0("hidden_rate : ", result$privacy_metrics$hidden_rate))
   print("success")
 }
 

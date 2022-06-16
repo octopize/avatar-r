@@ -123,7 +123,7 @@ avatars <- get_avatars(job$id)
 
 # Retrieve the privacy metrics
 result <- get_job_result(job$id)
-print(result$metrics$hidden_rate)
+print(result$privacy_metrics$hidden_rate)
 ```
 
 ## Avatarization Step by Step
@@ -199,6 +199,6 @@ kable(head(large_k_avatars))
 You can retrieve the privacy and utility metrics from the result object (see our main docs for details about each metric):
 
 ```{r}
-result$metrics$hidden_rate
-result$metrics$local_cloaking
+result$privacy_metrics$hidden_rate
+result$privacy_metrics$local_cloaking
 ```

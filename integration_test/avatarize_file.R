@@ -31,9 +31,9 @@ run_test <- function(filename) {
 
   result <- avatar::get_job_result(job$id, timeout = timeout)
   print("local_cloaking")
-  print(result$metrics$local_cloaking)
+  print(result$privacy_metrics$local_cloaking)
   print("hidden_rate")
-  print(result$metrics$hidden_rate)
+  print(result$privacy_metrics$hidden_rate)
 
   print("success")
 }
