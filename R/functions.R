@@ -127,6 +127,7 @@ upload_dataset <- function(dataframe) {
 #' @examples
 #' \dontrun{
 #' start_job(dataset_id, list(k = 20))
+#' start_job(dataset_id, list(k = 20, imputation = list(k = 5)))
 #' start_job(dataset_id, list(k = 20, seed = 42, ncp = 3, column_weights = list("var_a" = 0.2)))
 #' }
 start_job <- function(dataset_id, parameters) {

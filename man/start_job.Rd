@@ -20,6 +20,7 @@ Start the avatarization job
 \examples{
 \dontrun{
 start_job(dataset_id, list(k = 20))
+start_job(dataset_id, list(k = 20, imputation = list(k = 5)))
 start_job(dataset_id, list(k = 20, seed = 42, ncp = 3, column_weights = list("var_a" = 0.2)))
 }
 }

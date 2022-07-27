@@ -9,7 +9,7 @@ authenticate("user_integration", "password_integration")
 
 dataset_id <- avatar::upload_dataset(iris)
 
-parameters <- list(k = 20)
+parameters <- list(k = 20, imputation = list(k = 5))
 
 job <- avatar::start_job(dataset_id, parameters)
 print(paste0("got job id: ", job$id))
