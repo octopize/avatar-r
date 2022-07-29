@@ -152,7 +152,7 @@ Here's the list of parameters you can use for avatarization. The description for
 - `ncp`: default=5.
 - `imputation`: imputation parameters.
   - `k`: number of neighbors for the knn imputation. default=5
-  - `method`: method used for the imputation `knn`)
+  - `method`: method used for the imputation. default=`knn`)
   - `training_fraction`: the fraction of the dataset used to train the knn imputer. default=1
 - `seed`: default=NULL.
 

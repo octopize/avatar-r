@@ -11,7 +11,7 @@ authenticate("user_integration", "password_integration")
 run_single <- function(df, label) {
   dataset_id <- avatar::upload_dataset(df)
   head(mtcars)
-  parameters <- list(k = 20, ncp = 4, imputation = list(k = 5))
+  parameters <- list(k = 20, ncp = 4)
 
   job <- avatar::start_job(dataset_id, parameters)
   avatars <- avatar::get_avatars(job$id)
