@@ -150,7 +150,10 @@ Here's the list of parameters you can use for avatarization. The description for
 - `k` (required)
 - `column_weights`: default=1 for each variable
 - `ncp`: default=5.
-- `k_impute`: default=5.
+- `imputation`: imputation parameters.
+  - `k` (default=5): number of neighbors for the knn imputation.
+  - `method` (default=`knn`): method used for the imputation. 
+  - `training_fraction` (default=1): the fraction of the dataset used to train the knn imputer. 
 - `seed`: default=NULL.
 
 ```{r}
@@ -158,7 +161,7 @@ Here's the list of parameters you can use for avatarization. The description for
 dataset_id <- upload_dataset(iris)
 
 # Set the parameters you want to use for avatarization
-parameters <- list(k=20, column_weights=list(Sepal.Width=3), ncp=3, seed=42)
+parameters <- list(k=20, column_weights=list(Sepal.Width=3), ncp=3, seed=42, imputation=list(k=5))
 
 # You don't need to specify every parameter. Most of them have default values (see above).
 parameters <- list(k=120)
