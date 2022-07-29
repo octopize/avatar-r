@@ -71,7 +71,7 @@ browseVignettes(package="avatar")
 
 1. Update version in `DESCRIPTION`
 2. `git add DESCRIPTION`
-3. `git commit "chore: release $VERSION"`
+3. `git commit -m "chore: release $VERSION"`
 4. `git tag -as $VERSION -m "Release version $VERSION"`
 5. `git push --tags && git push`
 
