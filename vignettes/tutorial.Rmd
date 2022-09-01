@@ -205,3 +205,22 @@ You can retrieve the privacy and utility metrics from the result object (see our
 result$privacy_metrics$hidden_rate
 result$privacy_metrics$local_cloaking
 ```
+
+
+### Retrieve unshuffled avatars
+
+⚠ **Caution** - Beware before using the code below ⚠
+
+The unshuffled dataset is not protected as the linkage between the unshuffled avatars dataset and the original data is obvious.
+
+**This dataset contains sensitive data**. You will need to shuffle it in order to make it safe.
+
+```r
+# Retrieve your job result
+# For the full response, checkout help(get_job_result)
+result <- avatar::get_job_result(job$id)
+# Download the dataset
+columns <- result$sensitive_unshuffled_avatars_datasets$columns
+download_url <- result$sensitive_unshuffled_avatars_datasets$download_url
+sensitive_unshuffled_avatars <- get_dataset(download_url, columns)
+```
