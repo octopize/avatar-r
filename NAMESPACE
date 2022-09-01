@@ -3,6 +3,7 @@
 export(authenticate)
 export(create_user)
 export(get_avatars)
+export(get_dataset)
 export(get_explained_variance)
 export(get_job_result)
 export(get_projections)

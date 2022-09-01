@@ -220,14 +220,10 @@ get_job_result <- function(job_id, timeout = 10) {
 #' avatars <- get_dataset(download_url, columns)
 #' }
 get_dataset <- function(download_url, columns, download_timeout = 100) {
-  if (is.null(job_id)) {
-    stop("expected valid job_id, got null instead")
-  }
-
   res <- httr::GET(download_url, do.call(httr::add_headers, .get_headers()), httr::timeout(download_timeout))
 
   if (res$status_code != 200) {
-    stop("got error in HTTP request: GET ", the_url, " ", httr::content(res, "parsed"), call. = FALSE)
+    stop("got error in HTTP request: GET ", download_url, " ", httr::content(res, "parsed"), call. = FALSE)
   }
 
   # parse the CSV
@@ -269,7 +265,7 @@ get_avatars <- function(job_id, get_result_timeout = 10, download_timeout = 100)
 
   columns <- result$avatars_dataset$columns
   the_url <- result$avatars_dataset$download_url
-  
+
   avatars <- get_dataset(the_url, columns, download_timeout)
 
   return(avatars)
