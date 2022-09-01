@@ -248,47 +248,43 @@ get_avatars <- function(job_id, get_result_timeout = 10, download_timeout = 100)
   return(avatars)
 }
 
-#' Get unshuffled avatars as a dataframe given a job id 
+
+#' Get a dataset given a download_url and its columns
 #'
-#' ⚠ Caution ⚠
-#' There is no protection at all, as the linkage between the unshuffled avatars dataset and the original data is obvious. 
-#' **This dataset contains sensitive data**. You will need to shuffle it in order to make it safe.
 #'
-#' @param job_id The job id for this avatarization
-#' @param get_result_timeout The time to wait for the job result in seconds
+#' @param download_url The url to download the dataset
+#' @param columns The types to apply to the dataset
 #' @param download_timeout The time to wait for the download in seconds
 #'
-#' @return ⚠ Sensitive avatars unshuffled dataframe
+#' @return dataset
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' get_sensitive_avatars_unshuffled(job_id)
+#' result <- get_job_result(job_id, timeout = get_result_timeout)
+#' columns <- result$avatars_dataset$columns
+#' download_url <- result$avatars_dataset$download_url
+#' avatars <- get_dataset(download_url, columns)
 #' }
-get_sensitive_avatars_unshuffled <- function(job_id, get_result_timeout = 10, download_timeout = 100) {
+get_dataset <- function(download_url, columns, download_timeout = 100) {
   if (is.null(job_id)) {
     stop("expected valid job_id, got null instead")
   }
 
-  result <- get_job_result(job_id, timeout = get_result_timeout)
-
-  columns <- result$sensitive_unshuffled_avatars_datasets$columns
-
-  the_url <- result$sensitive_unshuffled_avatars_datasets$download_url
-  res <- httr::GET(the_url, do.call(httr::add_headers, .get_headers()), httr::timeout(download_timeout))
+  res <- httr::GET(download_url, do.call(httr::add_headers, .get_headers()), httr::timeout(download_timeout))
 
   if (res$status_code != 200) {
     stop("got error in HTTP request: GET ", the_url, " ", httr::content(res, "parsed"), call. = FALSE)
   }
 
   # parse the CSV
-  unshuffled_avatars <- httr::content(res, "parsed", show_col_types = FALSE)
+  dataset <- httr::content(res, "parsed", show_col_types = FALSE)
 
   if (!is.null(columns)) {
-    unshuffled_avatars <- .apply_types(unshuffled_avatars, columns)
+    dataset <- .apply_types(dataset, columns)
   }
 
-  return(unshuffled_avatars)
+  return(dataset)
 }
 
 #' Get contributions of the dataset variables within the fitted space
