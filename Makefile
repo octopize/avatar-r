@@ -23,6 +23,7 @@ docs:  ## Build documentation
 build/r_tutorial.md: vignettes/tutorial.Rmd  ## Generate for public-docs
 	-mkdir -p build/
 	Rscript -e "rmarkdown::render('$<', output_format=rmarkdown::github_document(), output_file='../$@')"
+.PHONY: build/r_tutorial.md
 
 tutorial-open: install-package  ## Open vignette tutorial
 	Rscript -e 'browseVignettes(package="avatar"); Sys.sleep(24 * 3600)'

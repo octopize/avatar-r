@@ -69,11 +69,12 @@ browseVignettes(package="avatar")
 
 ## Releasing a new version
 
-1. Update version in `DESCRIPTION`
-2. `git add DESCRIPTION`
-3. `git commit -m "chore: release $VERSION"`
-4. `git tag -as $VERSION -m "Release version $VERSION"`
-5. `git push --tags && git push`
+1. Run `make lci` to update the docs and tutorial.
+2. Update version in `DESCRIPTION`
+3. `git add DESCRIPTION`
+4. `git commit -m "chore: release $VERSION"`
+5. `git tag -as $VERSION -m "Release version $VERSION"`
+6. `git push --tags && git push`
 
 A GitHub action will then take care of checking the source code and creating a release.
 
