@@ -132,13 +132,12 @@ upload_dataset <- function(dataframe) {
 #' }
 start_job <- function(dataset_id, parameters) {
   object <- list(
-    dataset_id = dataset_id,
-    parameters = parameters
+    parameters = append(parameters, list(dataset_id = dataset_id))
   )
 
   r <- .do_http(
     "POST",
-    "/jobs",
+    "/jobs/avatarization",
     body = object,
     encode = "json"
   )
