@@ -4,7 +4,7 @@ Title: R Interface for Octopize's Avatarization Engine
 Version: 0.3.3
 Author: Octopize <help@octopize.io>
 Maintainer: Octopize <help@octopize.io>
-Description: Generates HTTP queries to the Avatarization engine to anonymize sensitive data
+Description: Generates HTTP queries to the Avatarization engine to anonymize sensitive data.
 License: Apache-2.0
 Encoding: UTF-8
 LazyData: true
@@ -15,7 +15,7 @@ Imports:
   readr,
   tibble,
   dplyr
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.2
 SystemRequirements: GNU make
 Suggests:
     rmarkdown,
