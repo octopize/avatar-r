@@ -201,6 +201,40 @@ get_job_result <- function(job_id, timeout = 10) {
   }
 }
 
+#' Get a dataset given a download_url and its columns
+#'
+#'
+#' @param download_url The url to download the dataset
+#' @param columns The types to apply to the dataset
+#' @param download_timeout The time to wait for the download in seconds
+#'
+#' @return dataset
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' result <- get_job_result(job_id, timeout = get_result_timeout)
+#' columns <- result$avatars_dataset$columns
+#' download_url <- result$avatars_dataset$download_url
+#' avatars <- get_dataset(download_url, columns)
+#' }
+get_dataset <- function(download_url, columns, download_timeout = 100) {
+  res <- httr::GET(download_url, do.call(httr::add_headers, .get_headers()), httr::timeout(download_timeout))
+
+  if (res$status_code != 200) {
+    stop("got error in HTTP request: GET ", download_url, " ", httr::content(res, "parsed"), call. = FALSE)
+  }
+
+  # parse the CSV
+  dataset <- httr::content(res, "parsed", show_col_types = FALSE)
+
+  if (!is.null(columns)) {
+    dataset <- .apply_types(dataset, columns)
+  }
+
+  return(dataset)
+}
+
 #' Get avatars as a dataframe given a job id
 #'
 #' The order of the lines have been shuffled, which means
@@ -229,20 +263,9 @@ get_avatars <- function(job_id, get_result_timeout = 10, download_timeout = 100)
   result <- get_job_result(job_id, timeout = get_result_timeout)
 
   columns <- result$avatars_dataset$columns
-
   the_url <- result$avatars_dataset$download_url
-  res <- httr::GET(the_url, do.call(httr::add_headers, .get_headers()), httr::timeout(download_timeout))
 
-  if (res$status_code != 200) {
-    stop("got error in HTTP request: GET ", the_url, " ", httr::content(res, "parsed"), call. = FALSE)
-  }
-
-  # parse the CSV
-  avatars <- httr::content(res, "parsed", show_col_types = FALSE)
-
-  if (!is.null(columns)) {
-    avatars <- .apply_types(avatars, columns)
-  }
+  avatars <- get_dataset(the_url, columns, download_timeout)
 
   return(avatars)
 }

@@ -36,7 +36,7 @@ check-build:  ## Check the built package
 
 install:  ## Install the deps
 	echo "Installing dev packages"
-	Rscript -e 'install.packages(c("devtools", "roxygen2", "testthat", "knitr", "rmarkdown", "prettydoc", "styler", "lintr"), repos="https://cloud.r-project.org")'
+	Rscript -e 'install.packages(c("devtools", "roxygen2", "testthat", "knitr", "rmarkdown", "prettydoc", "styler", "lintr", "readr"), repos="https://cloud.r-project.org")'
 	echo "Installing direct dependencies"
 	Rscript -e 'install.packages(c("tibble", "magrittr", "httr"), repos="https://cloud.r-project.org")'
 	echo "Installing optional tutorial packages"

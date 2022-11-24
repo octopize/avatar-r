@@ -10,7 +10,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 knitr::opts_chunk$set(error = TRUE)
 ```
 
@@ -41,7 +41,7 @@ Make sure you're using a recent version of `readr`:
 
 ```{r eval=FALSE}
 # Make sure you're using a recent version, e.g. 2.1.0
-packageVersion('readr')
+packageVersion("readr")
 ```
 
 ### Install the avatar package
@@ -65,7 +65,7 @@ library(avatar)
 You can list avatar's vignettes:
 
 ```{r eval=FALSE, include=TRUE}
-browseVignettes(package="avatar")
+browseVignettes(package = "avatar")
 ```
 
 You can also get documentation about the main functions:
@@ -117,7 +117,7 @@ authenticate("username", "strong_password")
 # Upload the dataset
 dataset_id <- upload_dataset(iris)
 # Start the avatarization job
-job <- start_job(dataset_id, list(k=20))
+job <- start_job(dataset_id, list(k = 20))
 # Retrieve the avatars
 avatars <- get_avatars(job$id)
 
@@ -161,10 +161,10 @@ Here's the list of parameters you can use for avatarization. The description for
 dataset_id <- upload_dataset(iris)
 
 # Set the parameters you want to use for avatarization
-parameters <- list(k=20, column_weights=list(Sepal.Width=3), ncp=3, seed=42, imputation=list(k=5))
+parameters <- list(k = 20, column_weights = list(Sepal.Width = 3), ncp = 3, seed = 42, imputation = list(k = 5))
 
 # You don't need to specify every parameter. Most of them have default values (see above).
-parameters <- list(k=120)
+parameters <- list(k = 120)
 ```
 
 ### Run avatarization
@@ -191,7 +191,7 @@ result <- avatar::get_job_result(job$id)
 You can follow the same process to retrieve the avatars with a higher `k`:
 
 ```{r}
-parameters_higher_k <- list(k=120)
+parameters_higher_k <- list(k = 120)
 job2 <- start_job(dataset_id, parameters_higher_k)
 large_k_avatars <- get_avatars(job2$id)
 kable(head(large_k_avatars))
@@ -204,4 +204,23 @@ You can retrieve the privacy and utility metrics from the result object (see our
 ```{r}
 result$privacy_metrics$hidden_rate
 result$privacy_metrics$local_cloaking
+```
+
+
+### Retrieve unshuffled avatars
+
+⚠ **Caution** - Beware before using the code below ⚠
+
+The unshuffled dataset is not protected as the linkage between the unshuffled avatars dataset and the original data is obvious.
+
+**This dataset contains sensitive data**. You will need to shuffle it in order to make it safe.
+
+```r
+# Retrieve your job result
+# For the full response, checkout help(get_job_result)
+result <- avatar::get_job_result(job$id)
+# Download the dataset
+columns <- result$sensitive_unshuffled_avatars_datasets$columns
+download_url <- result$sensitive_unshuffled_avatars_datasets$download_url
+sensitive_unshuffled_avatars <- get_dataset(download_url, columns)
 ```
