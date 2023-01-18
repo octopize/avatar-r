@@ -6,3 +6,6 @@
 Makefile
 ^doc$
 ^Meta$
+CONTRIBUTING.md
+integration_test
+bin
