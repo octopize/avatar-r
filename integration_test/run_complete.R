@@ -14,11 +14,20 @@ run_single <- function(df, label) {
   parameters <- list(k = 20, ncp = 4)
 
   job <- avatar::start_job(dataset_id, parameters)
-  avatars <- avatar::get_avatars(job$id)
-  result <- avatar::get_job_result(job$id)
+  avatars <- avatar::get_avatars(job$id, get_result_timeout = 50)
+  result <- avatar::get_job_result(job$id, timeout = 50)
+
+  # Download the unshuffled dataset
+  columns <- result$sensitive_unshuffled_avatars_datasets$columns
+  download_url <- result$sensitive_unshuffled_avatars_datasets$download_url
+  sensitive_unshuffled_avatars <- get_dataset(download_url, columns)
+  print(sensitive_unshuffled_avatars)
+
+  # Get metrics of the avatarization
   res <- get_variable_contributions(job$id, dataset_id)
   res <- get_projections(job$id)
   res <- get_explained_variance(job$id)
+
   print(paste0("######## ", label, " ########"))
   print(paste0("local_cloaking : ", result$privacy_metrics$local_cloaking))
   print(paste0("hidden_rate : ", result$privacy_metrics$hidden_rate))
