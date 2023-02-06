@@ -137,7 +137,7 @@ start_job <- function(dataset_id, parameters) {
 
   r <- .do_http(
     "POST",
-    "/jobs/avatarization",
+    "/jobs",
     body = object,
     encode = "json"
   )
