@@ -50,12 +50,18 @@ install-package:   ## Install the current version
 
 ##@ Tests
 
+
+AVATAR_BASE_URL ?= "http://localhost:8000"
+AVATAR_USERNAME ?= "user_integration"
+AVATAR_PASSWORD ?= "password_integration"
+
 test: ## Run tests
 	Rscript -e 'devtools::test()'
 .PHONY: test
 
 test-integration: ## Run integration tests
-	Rscript integration_test/run_simple.R
+	AVATAR_BASE_URL=$(AVATAR_BASE_URL) AVATAR_USERNAME=$(AVATAR_USERNAME)  AVATAR_PASSWORD=$(AVATAR_PASSWORD) Rscript integration_test/run_simple.R
+	AVATAR_BASE_URL=$(AVATAR_BASE_URL) AVATAR_USERNAME=$(AVATAR_USERNAME)  AVATAR_PASSWORD=$(AVATAR_PASSWORD) Rscript integration_test/run_complete.R
 .PHONY: integration-test
 
 ci: lint test build check-build test-integration  ## Run all tests

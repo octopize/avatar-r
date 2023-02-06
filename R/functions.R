@@ -4,6 +4,23 @@
 .health_check_timeout <- 1
 .default_timeout <- 5
 
+#' Internal function - get environment variable
+#' @keywords internal
+#' @examples
+#' \dontrun{
+#' get_env("AVATAR_BASE_URL")
+#' }
+.get_env <- function(variable, default = "") {
+  if (Sys.getenv(variable) != "") {
+    return(Sys.getenv(variable))
+  }
+
+  if (default != "") {
+    return(default)
+  }
+  stop("environment variable '", variable, "' is not set, and no default was passed")
+}
+
 #' Configure the HTTP endpoint
 #'
 #' @param server avatars API host
@@ -137,7 +154,7 @@ start_job <- function(dataset_id, parameters) {
 
   r <- .do_http(
     "POST",
-    "/jobs/avatarization",
+    "/jobs",
     body = object,
     encode = "json"
   )

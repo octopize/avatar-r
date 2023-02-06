@@ -2,10 +2,15 @@ library(devtools)
 devtools::load_all()
 
 print("starting integration test")
-httr::set_config(httr::config(ssl_verifypeer = 0L))
-set_server("http://localhost:8000")
 
-authenticate("user_integration", "password_integration")
+username <- .get_env("AVATAR_USERNAME")
+password <- .get_env("AVATAR_PASSWORD")
+base_url <- .get_env("AVATAR_BASE_URL")
+
+httr::set_config(httr::config(ssl_verifypeer = 0L))
+
+set_server(base_url)
+authenticate(username, password)
 
 dataset_id <- avatar::upload_dataset(iris)
 
