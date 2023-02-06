@@ -1,12 +1,25 @@
-# Integration test running all of our methods
+#!/usr/bin/env Rscript
 
+# Integration test running all of our methods
 library(devtools)
 devtools::load_all()
 
+get_env <- function(variable, default) {
+  if (Sys.getenv(variable) == "") {
+    return(default)
+  }
+  return(Sys.getenv(variable))
+}
+
+username <- get_env("AVATAR_USERNAME", default = "user_integration")
+password <- get_env("AVATAR_PASSWORD", default = "password_integration")
+base_url <- get_env("AVATAR_BASE_URL", default = "http://localhost:8000")
+
 print("starting complete integration test")
 httr::set_config(httr::config(ssl_verifypeer = 0L))
-set_server("http://localhost:8000")
-authenticate("user_integration", "password_integration")
+
+set_server(base_url)
+authenticate(username, password)
 
 run_single <- function(df, label) {
   dataset_id <- avatar::upload_dataset(df)
