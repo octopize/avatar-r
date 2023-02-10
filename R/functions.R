@@ -384,3 +384,57 @@ get_explained_variance <- function(job_id) {
 create_user <- function(username, password) {
   .do_http("POST", "/users", body = list(username = username, password = password), encode = "json")
 }
+
+#' Request a password reset
+#'
+#' @param email The user's email
+#'
+#' @return Nothing
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' forgotten_password("my.email@octopize.io")
+#' }
+forgotten_password <- function(email) {
+  endpoint <- "/login/forgotten_password"
+  response <- .do_http("POST", endpoint, body = list(email = email), encode = "json")
+
+  print(response$message)
+}
+
+#' Reset the password of an account
+#'
+#' @param email The user's email
+#' @param new_password The new password
+#' @param new_password_repeated The new password repeated
+#' @param token A token received on the email of the account
+#'
+#' @return Nothing
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' reset_password(
+#'   email = "my.email@octopize.io",
+#'   new_password = "b43b233a5e602b5a52ecab67cdf8",
+#'   new_password_repeated = "b43b233a5e602b5a52ecab67cdf8",
+#'   token = "8c85cf5a-809f-4b27-ba10-2495d5cfda5a"
+#' )
+#' }
+reset_password <- function(email, new_password, new_password_repeated, token) {
+  endpoint <- "/login/reset_password"
+
+  response <- .do_http("POST", endpoint,
+    body =
+      list(
+        email = email,
+        new_password = new_password,
+        new_password_repeated = new_password_repeated,
+        token = token
+      ),
+    encode = "json"
+  )
+
+  print(paste0(response$message))
+}
