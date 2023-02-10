@@ -224,3 +224,19 @@ columns <- result$sensitive_unshuffled_avatars_datasets$columns
 download_url <- result$sensitive_unshuffled_avatars_datasets$download_url
 sensitive_unshuffled_avatars <- get_dataset(download_url, columns)
 ```
+
+### Reset password
+
+*This following section only applies to servers that have configured email authentication.*
+
+To reset your password, you first need to call `forgotten_password`.
+```r
+avatar::forgotten_password("yourmail@mail.com")
+```
+You will received an email with a token.
+
+Copy that token, and call the next command, `reset_password`:
+
+```r
+avatar::reset_password("yourmail@mail.com", "new_password", "new_password", "token-received-by-mail")
+```
