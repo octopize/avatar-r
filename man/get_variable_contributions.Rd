@@ -4,12 +4,10 @@
 \alias{get_variable_contributions}
 \title{Get contributions of the dataset variables within the fitted space}
 \usage{
-get_variable_contributions(job_id, dataset_id)
+get_variable_contributions(job_id)
 }
 \arguments{
 \item{job_id}{The job id for this avatarization}
-
-\item{dataset_id}{An identifier for the uploaded dataset}
 }
 \value{
 contributions dataframe
@@ -19,7 +17,6 @@ Get contributions of the dataset variables within the fitted space
 }
 \examples{
 \dontrun{
-get_variable_contributions(job_id, dataset_id) # for original dataset
-get_variable_contributions(job_id, job_result$avatars_dataset$id) # for avatars dataset
+get_variable_contributions(job_id) # for original dataset
 }
 }

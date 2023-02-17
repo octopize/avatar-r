@@ -290,26 +290,21 @@ get_avatars <- function(job_id, get_result_timeout = 10, download_timeout = 100)
 #' Get contributions of the dataset variables within the fitted space
 #'
 #' @param job_id The job id for this avatarization
-#' @param dataset_id An identifier for the uploaded dataset
 #'
 #' @return contributions dataframe
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' get_variable_contributions(job_id, dataset_id) # for original dataset
-#' get_variable_contributions(job_id, job_result$avatars_dataset$id) # for avatars dataset
+#' get_variable_contributions(job_id) # for original dataset
 #' }
-get_variable_contributions <- function(job_id, dataset_id) {
+get_variable_contributions <- function(job_id) {
   if (is.null(job_id)) {
     stop("expected valid job_id, got null instead")
   }
 
-  if (is.null(dataset_id)) {
-    stop("expected valid dataset_id, got null instead")
-  }
 
-  endpoint <- paste0("/contributions?job_id=", job_id, "&dataset_id=", dataset_id)
+  endpoint <- paste0("/contributions?job_id=", job_id)
 
   response <- .do_http("GET", endpoint)
 
