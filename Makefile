@@ -11,12 +11,12 @@ PKG_BUILT := $(PKGNAME)_$(PKGVERS).tar.gz
 PKGSRC  := $(shell basename `pwd`)
 R := R --no-save --no-restore
 
-build: docs build/r_tutorial.md  ## Build the R package
+build: docs  ## Build the R package
 	cd ..;\
 	${R} CMD build $(PKGSRC)
 .PHONY: build
 
-docs:  ## Build documentation
+docs: build/r_tutorial.md ## Build documentation
 	Rscript -e 'devtools::document()'
 .PHONY: docs
 
