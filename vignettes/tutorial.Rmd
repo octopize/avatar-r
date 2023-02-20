@@ -1,7 +1,9 @@
 ---
 title: Avatar R Tutorial
 output: rmarkdown::html_vignette
-# output: pdf_document
+# output: 
+#   pdf_document:
+#     latex_engine: xelatex
 # always_allow_html: true
 vignette: >
   %\VignetteIndexEntry{Avatar Tutorial}
@@ -233,7 +235,7 @@ To reset your password, you first need to call `forgotten_password`.
 ```r
 avatar::forgotten_password("yourmail@mail.com")
 ```
-You will received an email with a token.
+You will receive an email with a token.
 
 Copy that token, and call the next command, `reset_password`:
 

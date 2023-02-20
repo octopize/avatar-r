@@ -9,6 +9,7 @@ man/         # docs
 R/           # package code
 vignettes    # long-form documentation
 ```
+
 ## Installation
 
 You can download a release right here on GitHub. After that, you can follow [the tutorial](./vignettes/tutorial.Rmd) to install and use the package.
