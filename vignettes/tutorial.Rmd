@@ -227,6 +227,23 @@ download_url <- result$sensitive_unshuffled_avatars_datasets$download_url
 sensitive_unshuffled_avatars <- get_dataset(download_url, columns)
 ```
 
+### Setting up an email account
+
+
+*This section is only needed if the use of emails to login is
+activated in the global configuration. It is not the case by default.*
+
+At the moment, you have to get in touch with your Octopize contact so that they can
+create your account.
+
+Our current email provider is AWS. They need to verify an email address before our platform
+can send emails to it.
+
+You'll thus get an email from AWS asking you to verify your email by clicking on a link.
+Once you have verified your email address by clicking on that link,
+you can follow the steps in the section about [Reset password].
+
+
 ### Reset password
 
 *This following section only applies to servers that have configured email authentication.*
