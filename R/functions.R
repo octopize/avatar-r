@@ -67,6 +67,12 @@ healthcheck <- function() {
   .do_http("GET", "/health", timeout = .health_check_timeout)
 }
 
+#' Check if client version is compatible with the API
+is_client_compatible <- function() {
+  r <- .do_http("GET", "/check_client", timeout = .default_timeout)
+  return(r)
+}
+
 #' Internal function - get headers
 #' @keywords internal
 .get_headers <- function() {
