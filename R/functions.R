@@ -115,6 +115,7 @@ healthcheck <- function() {
 #' Upload dataset to the avatarization API
 #'
 #' @param dataframe The original data
+#' @param name The name to give the dataset
 #'
 #' @return A dataset id
 #' @export
@@ -123,11 +124,11 @@ healthcheck <- function() {
 #' \dontrun{
 #' dataset_id <- upload_dataset(df)
 #' }
-upload_dataset <- function(dataframe) {
+upload_dataset <- function(dataframe, name = "original.csv") {
   csv <- readr::format_csv(dataframe)
   columns <- .get_columns(dataframe)
 
-  r <- .do_http("POST", "/datasets/inline", body = list("file" = curl::form_data(csv, "application/csv")))
+  r <- .do_http("POST", "/datasets/inline", body = list("file" = curl::form_data(csv, "text/csv"), "name" = curl::form_data(name, "text/plain")))
   r <- .do_http("PATCH", paste0("/datasets/", r$id), body = list("columns" = columns), encode = "json")
 
   return(r$id)

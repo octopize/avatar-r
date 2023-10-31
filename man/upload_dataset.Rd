@@ -4,10 +4,12 @@
 \alias{upload_dataset}
 \title{Upload dataset to the avatarization API}
 \usage{
-upload_dataset(dataframe)
+upload_dataset(dataframe, name = "original.csv")
 }
 \arguments{
 \item{dataframe}{The original data}
+
+\item{name}{The name to give the dataset}
 }
 \value{
 A dataset id
