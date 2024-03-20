@@ -2,7 +2,7 @@
 
 This the R client library for consuming the avatar API.
 
-**This client is deprecated and will be removed by 2024-04-01.**
+# **This client is deprecated and will be removed by 2024-04-01.**
 
 ## Structure
 
