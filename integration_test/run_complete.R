@@ -31,7 +31,7 @@ run_single <- function(df, label) {
   print(sensitive_unshuffled_avatars)
 
   # Get metrics of the avatarization
-  res <- get_variable_contributions(job$id, dataset_id)
+  res <- get_variable_contributions(job$id)
   res <- get_projections(job$id)
   res <- get_explained_variance(job$id)
 
